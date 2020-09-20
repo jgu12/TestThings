@@ -1,92 +1,70 @@
 package utils;
 
-import org.openqa.selenium.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebElement;
 
-import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
-public class MyWebElement implements WebElement {
-    @Override
-    public void click() {
+public class MyWebElement {
+    private WebElement element;
 
+    private final MyWebDriver driver;
+    private final String name;
+    private static final Logger logger = LogManager.getLogger(MyWebDriver.class);
+
+    public MyWebElement(MyWebDriver d, WebElement e, String name){
+        this.driver = d;
+        this.element = e;
+        this.name = name;
     }
 
-    @Override
-    public void submit() {
-
+    private Consumer<String> errorHandlingDecorator(Consumer<String> f) {
+        Consumer<String> fun = (args) -> {
+            System.out.println(">>>before $method on element: "+ this.name);
+            try{
+                f.accept(args);
+            } catch (Exception e){
+                //take screenshot, DOM snapshot
+                throw new RuntimeException("Exception happened during $method on element: "+this.name);
+            }
+            System.out.println(">>>after $method on element: "+ this.name);
+        };
+        return fun;
     }
 
-    @Override
-    public void sendKeys(CharSequence... charSequences) {
+//    private final Function<Integer, Integer> doClick = () -> {
+//        new RandomFailure().generate();
+//        this.element.click();
+//        return 0;
+//    };
 
+    private final Consumer<String> doSendKeys = args -> {
+        this.element.sendKeys(args);
+    };
+
+//    public void click(){
+//        Consumer<String[]> decorator = errorHandlingDecorator(doClick);
+//        decorator.apply();
+//    }
+
+    public void sendKeys(String input){
+        Consumer<String> decorator = errorHandlingDecorator(doSendKeys);
+        decorator.accept(input);
     }
 
-    @Override
-    public void clear() {
 
+    public void click(){
+        logger.info("Clicking on element: " + this.name);
+        new RandomFailure().generate();
+        this.element.click();
     }
+//
+//    public void sendKeys(String input){
+//        logger.info("Sending Keys on element: " + this.name);
+//        new RandomFailure().generate();
+//        this.element.sendKeys(input);
+//    }
 
-    @Override
-    public String getTagName() {
-        return null;
-    }
-
-    @Override
-    public String getAttribute(String s) {
-        return null;
-    }
-
-    @Override
-    public boolean isSelected() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
-
-    @Override
-    public String getText() {
-        return null;
-    }
-
-    @Override
-    public List<WebElement> findElements(By by) {
-        return null;
-    }
-
-    @Override
-    public WebElement findElement(By by) {
-        return null;
-    }
-
-    @Override
-    public boolean isDisplayed() {
-        return false;
-    }
-
-    @Override
-    public Point getLocation() {
-        return null;
-    }
-
-    @Override
-    public Dimension getSize() {
-        return null;
-    }
-
-    @Override
-    public Rectangle getRect() {
-        return null;
-    }
-
-    @Override
-    public String getCssValue(String s) {
-        return null;
-    }
-
-    @Override
-    public <X> X getScreenshotAs(OutputType<X> outputType) throws WebDriverException {
-        return null;
-    }
 }

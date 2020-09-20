@@ -31,7 +31,7 @@ public class uiTests {
     @DisplayName("TEST_1")
     public void test1(){
         home.search();
-        Assertions.assertTrue(searchResult.resultsAreShown());
+        searchResult.resultsAreShown();
     }
 
     @AfterEach

@@ -10,8 +10,8 @@ public class SearchResult extends BasePage{
         super(webDriver);
     }
 
-    public boolean resultsAreShown() {
-        return webDriver.waitForElementVisible(
-                "Result stats", "//div[@id='result-stats']").isDisplayed();
+    public void resultsAreShown() {
+        webDriver.waitForElementVisible(
+                "Result stats", "//div[@id='result-stats']");
     }
 }

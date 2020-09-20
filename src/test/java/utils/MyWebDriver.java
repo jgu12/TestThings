@@ -9,6 +9,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.function.Consumer;
+
+//driver only provides general waitForElementVisible(), waitForElement(), switchWindow()..
 
 public class MyWebDriver {
     private static final int TIME_OUT_IN_SECONDS = 5;
@@ -16,7 +19,6 @@ public class MyWebDriver {
     private WebDriver driver;
     private WebDriverWait wait;
     private static final Logger logger = LogManager.getLogger(MyWebDriver.class);
-
 
     public MyWebDriver(){
         System.setProperty("webdriver.chrome.driver", "/C:/Users/jack_/IdeaProjects/TestThings/chromedriver.exe");
@@ -29,7 +31,20 @@ public class MyWebDriver {
         driver.get(url);
     }
 
-    public WebElement waitForElementVisible(String elementName, String xpath){
+    public void close() {
+        if (driver!= null){
+            logger.info("Closing chrome driver");
+            driver.close();
+            driver.quit(); //kills the chromedriver.exe process
+        }
+    }
+
+    public void refresh() {
+        driver.navigate().refresh();
+    }
+
+
+    public MyWebElement waitForElementVisible(String elementName, String xpath){
         WebElement element;
         try {
             logger.info(String.format("Waiting for element to be visible: [%s], xpath= '%s'", elementName,xpath));
@@ -41,20 +56,7 @@ public class MyWebDriver {
         if (element == null){
             throw new NullPointerException(String.format("element '%s' is null", elementName));
         }
-        return element;
-    }
-
-    public void click(WebElement element){
-        logger.info("Clicked on " + element.toString());
-        element.click();
-    }
-
-    public void close() {
-        if (driver!= null){
-            logger.info("Closing chrome driver");
-            driver.close();
-            driver.quit(); //kills the chromedriver.exe process
-        }
+        return new MyWebElement(this, element, elementName);
     }
 
     //public void waitForElementVisible(String elementName, By locator){}
