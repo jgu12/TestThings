@@ -33,8 +33,12 @@ public class Main {
 
 
     public static void main(String[] args){
-        doThings();
-        doThings1("Thing1");
+//        doThings();
+//        doThings1("Thing1");
+        Pizza p2 = new Pizza.PizzaBuilder(200).
+                customer("jane").
+                bacon(true).
+                cheese(true).build();
     }
 
 

@@ -1,4 +1,4 @@
-package utils;
+package Simple.utils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,8 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.function.Consumer;
 
 //driver only provides general waitForElementVisible(), waitForElement(), switchWindow()..
 

@@ -1,9 +1,9 @@
-package uiTest;
+package Simple.uiTest;
 
+import Simple.utils.MyWebDriver;
 import org.junit.jupiter.api.*;
-import pages.Home;
-import pages.SearchResult;
-import utils.MyWebDriver;
+import Simple.pages.Home;
+import Simple.pages.SearchResult;
 
 public class uiTests {
 

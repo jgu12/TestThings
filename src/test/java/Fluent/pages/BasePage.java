@@ -1,6 +1,6 @@
-package pages;
+package Fluent.pages;
 
-import utils.MyWebDriver;
+import Fluent.utils.MyWebDriver;
 
 public class BasePage {
     final MyWebDriver webDriver;
