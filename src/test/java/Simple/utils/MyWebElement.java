@@ -1,11 +1,10 @@
-package utils;
+package Simple.utils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class MyWebElement {
     private WebElement element;
@@ -26,7 +25,7 @@ public class MyWebElement {
             try{
                 f.accept(args);
             } catch (Exception e){
-                //take screenshot, DOM snapshot
+                //take screenshot, DOM snapshot, etc.
                 throw new RuntimeException("Exception happened during $method on element: "+this.name);
             }
             System.out.println(">>>after $method on element: "+ this.name);
@@ -57,7 +56,7 @@ public class MyWebElement {
 
     public void click(){
         logger.info("Clicking on element: " + this.name);
-        new RandomFailure().generate();
+//        new RandomFailure().generate();
         this.element.click();
     }
 //
